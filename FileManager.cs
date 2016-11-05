@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AlgoDM
 {
-    class FileManager
+    static class FileManager
     {
+        /// <summary>
+        /// Fonction retournant les adn correspondant au fichier adn
+        /// </summary>
+        /// <param name="pathFile"> le chemin du fichier</param>
+        /// <returns></returns>
         public static Dna[] GetDna(string pathFile)
         {
             Dna[] dnas = new Dna[2];

@@ -1,29 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AlgoDM
 {
-    class Solution1 : Solution
+    class Solution1 : ISolution
     {
-        
-        public Solution1(ICout cout) : base(cout)
+        private readonly Cout1 _cout;
+        public Solution1(Dictionary<string, int> values)
         {
-            
+            _cout = new Cout1(values);
         }
 
-        public override void Execute(Dna dna1, Dna dna2)
+        /// <summary>
+        ///  Fonction qui calcule l'alignement optimal de deux adn et qui donne son cout.
+        /// </summary>
+        /// <param name="dna1"></param>
+        /// <param name="dna2"></param>
+        /// <param name="f"> tableau contenant toute les meilleurs valeurs de cout entre 0,0 et i,j</param>
+        /// <returns>le chemin triée emprunter par l'algorithme(permet l'affichage de l'alignement optimal)</returns>
+        public List<Tuple<int,int>> Execute(Dna dna1, Dna dna2,out int[,] f)
         {
-            int[,] f =new int[dna1.GetLenght(),dna2.GetLenght()];
-            Cout.Cout(dna1.GetLenght()-1, dna2.GetLenght()-1, dna1, dna2, f);
+            List<Tuple<int, int>> chemin = new List<Tuple<int, int>>();
+            _cout.Cout(dna1.GetLenght()-1, dna2.GetLenght()-1, dna1, dna2);
+            f = _cout.F;
             int i = dna1.GetLenght() -1;
             int j = dna2.GetLenght() -1;
-            String dna1dif = "";
-            String dna2dif = "";
             while (i != 0 || j != 0)
             {
+                chemin.Add(new Tuple<int, int>(i,j));
                 int gapi = 999999999;
                 int gapj = 999999999;
                 int gapij = 999999999;
@@ -42,32 +46,37 @@ namespace AlgoDM
                 if (gapi < gapj && gapi < gapij)
                 {
                     i--;
-                    dna2dif += "- ";
-                    dna1dif += dna1.GetProteine(i + 1)+" ";
                     continue;
                 }
                 if (gapj < gapij)
                 {
                     j--;
-                    dna2dif += dna2.GetProteine(j + 1)+" ";
-                    dna1dif += "- ";
                     continue;
                 }
                 i--;
                 j--;
-                dna1dif += dna1.GetProteine(i + 1)+" ";
-                dna2dif += dna2.GetProteine(j + 1)+" ";
             }
-            
-            Console.WriteLine(Reverse(dna1dif));
-            Console.WriteLine(Reverse(dna2dif));
+            return chemin;
         }
 
-        public static string Reverse(string s)
+        /// <summary>
+        ///  Fonction qui calcule l'alignement optimal de deux adn et qui donne son cout.
+        /// </summary>
+        /// <returns>le chemin triée emprunter par l'algorithme(permet l'affichage de l'alignement optimal)</returns>
+        public List<Tuple<int, int>> Execute(Dna dna1, Dna dna2)
         {
-            char[] charArray = s.ToCharArray();
-            Array.Reverse(charArray);
-            return new string(charArray);
+            int[,] f;
+            var l = Execute(dna1, dna2, out f);
+            Console.WriteLine("Cout : "+f[dna1.GetLenght()-1,dna2.GetLenght() - 1]);
+            l.Sort(delegate (Tuple<int, int> x, Tuple<int, int> y)
+            {
+                if (x.Item1 == y.Item1)
+                {
+                    return x.Item2 - y.Item2;
+                }
+                return x.Item1 - y.Item1;
+            });
+            return l;
         }
     }
 }

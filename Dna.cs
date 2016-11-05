@@ -1,39 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace AlgoDM
 {
     class Dna
     {
 
-        private string _dna;
-
+        private readonly string _dna;
         public Dna(string dna)
         {
-            _dna = dna;
-            _dna = " "+String.Join("",dna.Split(' '));
+            _dna = " "+dna.Replace(" ", "");
         }
 
+        public Dna(Dna dna, int debut,int fin)
+        {
+            _dna = " ";
+            for (int i = debut; i < fin; i++)
+            {
+                _dna += dna.GetProteine(i);
+            }
+        }
+
+        /// <summary>
+        /// Permet d'obtenir la proteine a l'emplacement i
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
         public char GetProteine(int i)
         {
             return _dna[i];
         }
 
-        public void AddGap(int index, bool replace)
-        {
-            if (!replace)
-            {
-                _dna = _dna.Insert(index, "-");
-            }
-            else
-            {
-                _dna = _dna.Substring(0, index - 1) + "-" + _dna.Substring(index+1);
-            }
-        }
-
+        /// <summary>
+        /// etourne la longueur du brin d'adn
+        /// </summary>
+        /// <returns></returns>
         public int GetLenght()
         {
             return _dna.Length;
