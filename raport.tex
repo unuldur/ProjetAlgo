@@ -1,0 +1,99 @@
+\documentclass[5pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings} 
+\title{Mini-Projet d’Algorithmique}
+\author{Julien Defiolles}
+\date{Année universitaire 2016-2017}
+\begin{document}
+	\maketitle
+	\part{Partie théorique}
+	\section*{Partie 1}
+	\subsection*{Question 1.1}
+	La complexité d'un algorithme  qui consisterait à énumérer tout les alignements possible serait de $O(d^2)$.
+	\subsection*{Question 1.2}
+	Supposons que $(x_{^m},y_{^m})\notin M$ et que $x_{^m}$ et $ y_{^m}$ apparaissent dans $M$.
+	Alors on peut en déduire que $M$ est aligner sur $m$ c'est à dire qu'il existe une paire $(x_{^m},y_{^m})$. C'est contradictoire donc si $(x_{^m},y_{^m})\notin M$ alors $x_{^m}$ ou $ y_{^m}$ apparait dans $M$.
+	\subsection*{Question 1.3}
+	\begin{itemize}
+		\item test
+	\end{itemize}
+	\subsection*{Question 1.4}
+	$F(m,n) = Min\{F(m-1,n-1),F(m-1,n),F(m,n-1)\}$
+	
+	\subsection*{Question 1.5}
+	$F(i,j) = Min\{F(i-1,j-1),F(i-1,j),F(i,j-1)\}$
+	
+	\subsection*{Question 1.6}
+	Montrons que $F(i,0) = i\delta_{^gap}$ pour tout $i\in \{0,1,...,m\}$ et $F(0,j) = j\delta_{^gap}$ pour tout $j\in \{0,1,...,n\}$\\
+	De Base $F(0,0) = 0$ dès que on augmente de 1, $i$ ou $j$, on obtient la valeur du gap, si on augmente $i$ ou $j$ $k$ fois on aura la valeur $k*\delta_{^gap}$ (le seul chemin existant étant de décrémenter $i$ ou $j$).\\ On en déduit que $F(i,0) = i\delta_{^gap}$ pour tout $i\in \{0,1,...,m\}$ et $F(0,j) = j\delta_{^gap}$ pour tout $j\in \{0,1,...,n\}$
+	
+	\subsection*{Question 1.7}
+	\begin{lstlisting}
+F : tableau entier de taille m*n
+
+Fonction COUT1(i,j)
+	SI F[i,j] != -1
+	ALORS
+		RETOURNE F[i,j]
+	FIN SI
+	SI(i = 0 OU j = 0)
+	ALORS
+		SI (i = 0)
+		ALORS
+			F[i,j] = j * gap
+		SINON
+			F[i,j] = i * gap
+		FIN SI
+		RETOURNE F[i,j]
+	FIN SI
+	F[i,j] = Min(COUT1(i - 1, j -1),COUT1(i - 1, j),COUT1(i, j -1))
+	RETOURNE F[i,j]
+FIN COUT1
+	\end{lstlisting}
+	Cette algorithme à du $O(n * m)$ en complexité de temps et d'espace, en complexité de 
+	temps car il parcourt tout $F$ pour le remplir qui est de taille $n*m$ et d'espace pour $F$.
+	
+	\subsection*{Question 1.8}
+	\begin{lstlisting}
+M : Liste contenant l'alignement optimal.
+
+Fonction SOL1(X,Y)
+	i = Taille(X)
+	j = Taille(Y)
+	COUT1(i, j)
+	TANT QUE ( i !=0 ET j != 0)
+		AJOUTER i,j DANS M
+		SI(i != 0) ALORS
+			gapi = F[i-1,j]
+		FIN SI
+		SI(j != 0) ALORS
+			gapj = F[i,j-1]
+		FIN SI
+		SI(i != 0 ET j != 0) ALORS
+			gapij = F[i-1,j]
+		FIN SI
+		SI(Min(gapi, gapj, gapij) = gapi) ALORS
+			i = i - 1
+			CONTINUER
+		FIN SI
+		SI(Min(gapi, gapj, gapij) = gapj) ALORS
+			j = j - 1
+			CONTINUER
+		FIN SI
+		SI(Min(gapi, gapj, gapij) = gapij) ALORS
+			i = i - 1
+			j = j - 1
+		FIN SI
+	FIN TANT QUE
+	RETOURNER M
+FIN SOL1
+	\end{lstlisting}
+	Cette algorithme à du $O(n + m)$ en complexité de temps, car on décrémente forcement $i$ ou $j$ ou les deux.\\
+	Au final cette approche a pour complexité $O(n * m)$ en temps et en espace.
+	
+\end{document}
