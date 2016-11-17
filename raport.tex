@@ -21,7 +21,9 @@
 	Alors on peut en déduire que $M$ est aligner sur $m$ c'est à dire qu'il existe une paire $(x_{^m},y_{^m})$. C'est contradictoire donc si $(x_{^m},y_{^m})\notin M$ alors $x_{^m}$ ou $ y_{^m}$ apparait dans $M$.
 	\subsection*{Question 1.3}
 	\begin{itemize}
-		\item test
+		\item Si $(x_{^m},y_{^n})\notin M$ et que $x_{^m}\in M$ alors $ y_{^n}\notin M$
+		\item Si $(x_{^m},y_{^n})\notin M$ et que $y_{^n}\in M$ alors $ x_{^m}\notin M$
+		\item Si $(x_{^m},y_{^n})\in M$ alors $ y_{^n}\in M$ et $x_{^m}\in M$
 	\end{itemize}
 	\subsection*{Question 1.4}
 	$F(m,n) = Min\{F(m-1,n-1),F(m-1,n),F(m,n-1)\}$
@@ -99,14 +101,20 @@ FIN SOL1
 	\end{lstlisting}
 	Cette algorithme à du $O(n + m)$ en complexité de temps, car on décrémente forcement $i$ ou $j$ ou les deux.\\
 	Au final cette approche a pour complexité $O(n * m)$ en temps et en espace.
-	
-	
-	\includepdf[pages=1,pagecommand=\section*{Partie 2}\subsection*{Question 2.1}]{Q2}
+	\section*{Partie 2}
+	\subsection*{Question 2.1}
+	\includegraphics[scale=0.20]{Q2-1}
 	\subsection*{Question 2.2}
 	Todo
 	\subsection*{Question 2.3} 
-	Un algorithme de Dijkstra serait parfait pour calculer le plus court chemin entre $(0,0)$ et $(m,n)$, la complexité de celui-ci est de $O(m*log(n))$.
-	\includepdf[pages=7]{Q23}
+	Un algorithme de Dijkstra serait parfait pour calculer le plus court chemin entre $(0,0)$ et $(m,n)$, la complexité de celui-ci est de $O(m*log(n))$.\\
+	\includegraphics[scale=0.08]{Q23-1}\\
+	\includegraphics[scale=0.08]{Q23-2}\\
+	\includegraphics[scale=0.08]{Q23-3}\\
+	\includegraphics[scale=0.08]{Q23-4}\\
+	\includegraphics[scale=0.08]{Q23-5}\\
+	\includegraphics[scale=0.08]{Q23-6}\\
+	\includegraphics[scale=0.08]{Q23-7}\\
 	Après exécution de l'algorithme de Dijkstra, on voit que le coût minimale de cet alignement est de 4. On trouve l'alignement optimal:\\
 	ACT\_G
 	\_CTTG
@@ -198,6 +206,25 @@ FinPour
 
 \section*{Partie 4}
 \subsection*{Question 4.4}
+Voici le temps d'exécution de Cout1:\\
+\includegraphics[scale=0.5]{Cout1}\\
+
+Voici le temps d'exécution de Sol1:\\
+\includegraphics[scale=0.5]{Sol1}\\
+
+Pour les deux images on ne peut vraiment dire si la courbe correspond à la valeur théorique : On n'a pas assez de valeurs pour ça.
+
 \subsection*{Question 4.5}
 Mon ordinateur a 8Go de RAM. Avec ceci il fait tournée le programme jusqu'à l'instance 3000 ou il émet une erreur dût au dépassement de la pile(StackOverflow Exception) . Et sinon il est obligé de s'arrêter à l'instance 20000 ou il émet une erreur de mémoire (OutOfMEmory Exception).
+\subsection*{Question 4.6}
+Voici le temps d'exécution de Cout2:\\
+\includegraphics[scale=0.5]{Cout2}\\
+Pour Cout2 les valeurs sont les mêmes que Cout1, et le temps d'exécution est environ le même.\\
+Cout2 fait tournée le programme jusqu'à l'instance 5000 ou il émet une erreur dût au dépassement de la pile(StackOverflow Exception) . Et sinon il fait tourner tout les jeux de données. Pour résoudre le problème de pile j'ai crée une version itérative de Cout2.
+\subsection*{Question 4.7}
+Les valeurs de Cout2Bis sont différente pour les mêmes arguments(ce qui est normal), mais pour la même distance elles sont identiques.
+\subsection*{Question 4.8}
+Les résultats de Sol1 et de Sol2 sont identiques.
+\subsection*{Question 4.9}
+Sol2 en utilisant les versions itératives de Cout2 et Cout2Bis, peut résoudre tout les jeux de données.
 \end{document}
